@@ -8,13 +8,12 @@ const get_countries_list = async (req, res, next) => {
   // if(req.query === 'sort'){
 
   // }
-  if(req.query.sort == 'true'){
-    console.log(req.query);
-    }
+  const { sort } = req.query;
 
   try {
-    
-    const allCountries = await Country.find(condition).sort({ name:1 });
+    const allCountries = await Country.find(condition).sort(sort === 'true' && {
+      name: 1
+    });
     
     if (!allCountries.length)
       return res
